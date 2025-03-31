@@ -5,17 +5,19 @@ import javax.swing.*;
 import priv.sympsel.Config;
 import priv.sympsel.resource.*;
 import priv.sympsel.resource.Mv;
+import priv.sympsel.util.AddImage;
+import priv.sympsel.util.NonConfigurableVariables;
 import priv.sympsel.util.Util;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.Random;
 
-import static priv.sympsel.resource.ResultArr.data;
+import static priv.sympsel.resource.PictureArray.data;
 import static priv.sympsel.util.Util.*;
-
 
 public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
@@ -27,7 +29,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         // 初始化菜单栏
         initJFrame();
 
-        data = ResultArr.disrupt_2();
+        data = PictureArray.disrupt_2();
         Util.setStep(0);
 
         // 初始化图片
@@ -62,13 +64,13 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
     public void initJFrame() {
         // 添加菜单: 功能、帮助、关于
-        // 功能： 随机图片、成图预览、一键通关、重新开始、选择图片、重新登录、退出游戏
+        // 功能： 添加图片、随机图片、成图预览、一键通关、重新开始、选择图片、重新登录、退出游戏
         // 帮助： 提示
         // 关于： 测试用户、乞讨、文本
         addAll(Mv.jMenuBar, Mv.functionJMenu, Mv.helpJMenu, Mv.aboutJMenu);
-        addAll(Mv.functionJMenu, Mv.randomImageItem, Mv.showItem,
-                Mv.fastWinItem, Mv.replayItem, Mv.chooseImageJMenu,
-                Mv.reLoginItem, Mv.closeItem);
+        addAll(Mv.functionJMenu, Mv.addImageItem, Mv.randomImageItem,
+                Mv.showItem, Mv.fastWinItem, Mv.replayItem,
+                Mv.chooseImageJMenu, Mv.reLoginItem, Mv.closeItem);
         addAll(Mv.helpJMenu, Mv.tipsItem);
         addAll(Mv.aboutJMenu, Mv.testUserItem, Mv.accountItem, Mv.textItem);
 
@@ -76,13 +78,13 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
         this.addKeyListener(this);
 
-        /*绑定动作监听: 随机图片、成图预览、一键通关、重新开始、选择图片、重新登录、退出游戏
+        /*绑定动作监听: 添加图片、随机图片、成图预览、一键通关、重新开始、选择图片、重新登录、退出游戏
                       提示、
                       测试用户、乞讨、文本*/
 
         Util.addActionListenerAll(this, Mv.randomImageItem, Mv.showItem,
                 Mv.fastWinItem, Mv.replayItem, Mv.chooseImageJMenu,
-                Mv.reLoginItem, Mv.closeItem, Mv.tipsItem,
+                Mv.reLoginItem, Mv.closeItem, Mv.tipsItem,Mv.addImageItem,
                 Mv.testUserItem, Mv.accountItem, Mv.textItem);
 
         addGamePicture();
@@ -97,7 +99,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         int kc = e.getKeyCode();
         if (kc == 81) {
             this.getContentPane().removeAll();
-            String path = ImagePath.pathPri + Config.CHOICE + "/whole" + ImagePath.type;
+            String path = ImagePath.pathPri + Config.DEFAULT_IMAGE + "/whole" + ImagePath.type;
             addPicture(this, path,
                     Config.BACKGROUND_OFFSET_X, Config.BACKGROUND_OFFSET_Y,
                     Config.BACKGROUND_WIDTH, Config.BACKGROUND_HEIGHT);
@@ -123,7 +125,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         switch (kc) {
             case 87:
                 gameOver();
-                data = ResultArr.getArr_2();
+                data = PictureArray.getArr_2();
                 break;
             case 78:
                 randomPicture();
@@ -132,26 +134,26 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
                 System.exit(0);
                 break;
         }
-        ResultArr.move(data, kc);
+        PictureArray.move(data, kc);
         initImage(data);
     }
 
     private void randomPicture() {
         Random r = new Random();
-        Config.CHOICE = r.nextInt(Config.MAX_PICTURE_COUNT) + 1;
+        Config.DEFAULT_IMAGE = r.nextInt(NonConfigurableVariables.MAX_PICTURE_COUNT) + 1;
         reStart();
     }
 
     private void reStart() {
         initImage(data);
-        data = ResultArr.disrupt_2();
+        data = PictureArray.disrupt_2();
         setStep(0);
     }
 
     private boolean isWin() {
         for (int i = 0; i < data.length * data[0].length; i++) {
             if (data[i / data.length][i % data.length] !=
-                    ResultArr.getArr_2()[i / data.length][i % data.length]) {
+                    PictureArray.getArr_2()[i / data.length][i % data.length]) {
                 return false;
             }
         }
@@ -176,6 +178,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     }
 
     private void setStepCountAvailable(boolean b) {
+        if (!b) return;
         JLabel stepCountLabel = new JLabel("步数：" + Util.getStep());
         stepCountLabel.setBounds(
                 Config.STEP_OFFSET_X, Config.STEP_OFFSET_Y,
@@ -192,7 +195,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             System.exit(0);
         } else if (o == Mv.fastWinItem) {
             gameOver();
-            data = ResultArr.getArr_2();
+            data = PictureArray.getArr_2();
         } else if (o == Mv.showItem) {
 //            createWindow();
         } else if (o == Mv.randomImageItem) {
@@ -207,18 +210,25 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             createWindow(ImagePath.moneyReceivingCode);
         } else if (o == Mv.textItem) {
             createWindow(ImagePath.readMe);
+        } else if(o == Mv.addImageItem) {
+            // todo 添加图片
+            try {
+                AddImage.appendPictureALL();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
     private void addGamePicture() {
-        for (int i = 1; i <= Config.MAX_PICTURE_COUNT; i++) {
+        for (int i = 1; i <= NonConfigurableVariables.MAX_PICTURE_COUNT; i++) {
             JMenuItem p = new JMenuItem("p" + i);
             Mv.chooseImageJMenu.add(p);
             int finalI = i;
             p.addActionListener(e -> {
                 Object o = e.getSource();
                 if (o == p) {
-                    Config.CHOICE = finalI;
+                    Config.DEFAULT_IMAGE = finalI;
                     reStart();
                 }
             });

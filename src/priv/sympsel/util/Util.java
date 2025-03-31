@@ -6,6 +6,7 @@ import priv.sympsel.ui.GameJFrame;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import java.io.File;
 
 public class Util {
     private static int step = 0;
@@ -35,7 +36,7 @@ public class Util {
     }
 
     public static void addPicture(JFrame jFrame, int[][] data) {
-        String path = ImagePath.pathPri + Config.CHOICE + "/";
+        String path = ImagePath.pathPri + Config.DEFAULT_IMAGE + "/";
         for (int i = 0; i < 16; i++) {
             addPicture(jFrame, path + data[i / 4][i % 4] + ImagePath.type,
                     Config.LEFT_TOP_OFFSET_X + i % 4 * Config.WIDTH,
@@ -103,5 +104,20 @@ public class Util {
         jDialog.setLocationRelativeTo(null);
         jDialog.setModal(true);
         jDialog.setVisible(true);
+    }
+
+    public static int getImageGroupNumber(String pathToFile) {
+        File imgDir = new File(pathToFile);
+        return countDirectSubfolders(imgDir);
+    }
+
+    public static int countDirectSubfolders(File dir) {
+        if (!dir.isDirectory()) return 0;
+        int count = 0;
+        File[] files = dir.listFiles();
+        if (files == null) return 0;
+        for (File file : files) if (file.isDirectory()) count++;
+        System.out.println("count = " + count);
+        return count;
     }
 }

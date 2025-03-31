@@ -13,6 +13,7 @@ public class Mv {
     public static final  JMenu chooseImageJMenu = new JMenu("选择图片");
 
     // 创建菜单项
+    public static final JMenuItem addImageItem = new JMenuItem("添加图片");
     public static final JMenuItem backLoginItem = new JMenuItem("返回登录：Z");
     public static final JMenuItem closeItem = new JMenuItem("退出游戏：X");
 

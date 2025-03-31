@@ -6,7 +6,7 @@ import java.util.Random;
 
 import static priv.sympsel.Config.disruptStep;
 
-public class ResultArr {
+public class PictureArray {
     public static int x = 3, y = 3;
 
     private static final int[] arr_1 =
@@ -43,8 +43,6 @@ public class ResultArr {
         }
         return result;
     }
-
-
     // 采用逆序打乱策略
     public static int[][] disrupt_2() {
         // 重置x，y的值，使打乱后理论可复原
@@ -116,4 +114,5 @@ public class ResultArr {
         }
         System.out.println();
     }
+
 }

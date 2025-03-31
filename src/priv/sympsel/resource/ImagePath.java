@@ -1,9 +1,8 @@
 package priv.sympsel.resource;
 
-import priv.sympsel.Config;
+import priv.sympsel.util.Util;
 
 public class ImagePath {
-
     // 界面图片
     public static final String back = "image/frame/back.jpg";
     public static final String back2 = "image/frame/back2.jpg";
@@ -35,6 +34,8 @@ public class ImagePath {
     // 游戏图片
     public static final String type = ".jpg";
     public static final String pathPri = "image/picture/p";
+
+    public static final String imageGroupPath = "image/picture";
 
     // 其它图片
     public static final String testUser = "image/frame/testuser.jpg";
