@@ -49,8 +49,7 @@ public class AddImage {
         BatchRenameFiles.renameFiles(outputDirectoryFinal, type);
 
         // 重命名原图
-        BatchRenameFiles.renamePicture("",NonConfigurableVariables.MAX_PICTURE_COUNT,
-                );
+
 
         // 删除临时图片
         deleteDirectoryContents(copiedImagePath);
