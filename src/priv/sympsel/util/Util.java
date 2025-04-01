@@ -9,16 +9,6 @@ import javax.swing.border.BevelBorder;
 import java.io.File;
 
 public class Util {
-    private static int step = 0;
-
-    public static int getStep() {
-        return step;
-    }
-
-    public static void setStep(int step) {
-        Util.step = step;
-    }
-
     public static void addPicture(
             JFrame jFrame, String path,
             int x, int y, int width, int height) {
@@ -38,7 +28,7 @@ public class Util {
     public static void addPicture(JFrame jFrame, int[][] data) {
         String path = ImagePath.pathPri + Config.DEFAULT_IMAGE + "/";
         for (int i = 0; i < 16; i++) {
-            addPicture(jFrame, path + data[i / 4][i % 4] + ImagePath.type,
+            addPicture(jFrame, path + data[i / 4][i % 4] + Config.type,
                     Config.LEFT_TOP_OFFSET_X + i % 4 * Config.WIDTH,
                     Config.LEFT_TOP_OFFSET_Y + i / 4 * Config.HEIGHT,
                     Config.WIDTH, Config.HEIGHT);
@@ -54,7 +44,7 @@ public class Util {
 
     public static void addPicture(JFrame jFrame, int[] data) {
         for (int i = 0; i < 15; i++) {
-            addPicture(jFrame, ImagePath.pathPri + data[i] + ImagePath.type,
+            addPicture(jFrame, ImagePath.pathPri + data[i] + Config.type,
                     Config.LEFT_TOP_OFFSET_X + i % 4 * Config.WIDTH,
                     Config.LEFT_TOP_OFFSET_Y + i / 4 * Config.HEIGHT,
                     Config.WIDTH, Config.HEIGHT);
@@ -87,7 +77,7 @@ public class Util {
         if (x == x_ && y == y_) {
             return;
         }
-        step++;
+        NonConfigurableVariables.setStep(NonConfigurableVariables.getStep() + 1);
         int temp = data[x][y];
         data[x][y] = data[x_][y_];
         data[x_][y_] = temp;
@@ -117,7 +107,6 @@ public class Util {
         File[] files = dir.listFiles();
         if (files == null) return 0;
         for (File file : files) if (file.isDirectory()) count++;
-        System.out.println("count = " + count);
         return count;
     }
 }

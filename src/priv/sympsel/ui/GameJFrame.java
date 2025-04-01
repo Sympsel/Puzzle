@@ -19,6 +19,8 @@ import java.util.Random;
 import static priv.sympsel.resource.PictureArray.data;
 import static priv.sympsel.util.Util.*;
 
+import priv.sympsel.util.NonConfigurableVariables;
+
 public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
     public GameJFrame() {
@@ -30,7 +32,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         initJFrame();
 
         data = PictureArray.disrupt_2();
-        Util.setStep(0);
+        NonConfigurableVariables.setStep(0);
 
         // 初始化图片
         initImage(data);
@@ -84,7 +86,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
         Util.addActionListenerAll(this, Mv.randomImageItem, Mv.showItem,
                 Mv.fastWinItem, Mv.replayItem, Mv.chooseImageJMenu,
-                Mv.reLoginItem, Mv.closeItem, Mv.tipsItem,Mv.addImageItem,
+                Mv.reLoginItem, Mv.closeItem, Mv.tipsItem, Mv.addImageItem,
                 Mv.testUserItem, Mv.accountItem, Mv.textItem);
 
         addGamePicture();
@@ -99,7 +101,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         int kc = e.getKeyCode();
         if (kc == 81) {
             this.getContentPane().removeAll();
-            String path = ImagePath.pathPri + Config.DEFAULT_IMAGE + "/whole" + ImagePath.type;
+            String path = ImagePath.pathPri + Config.DEFAULT_IMAGE + "/whole" + Config.type;
             addPicture(this, path,
                     Config.BACKGROUND_OFFSET_X, Config.BACKGROUND_OFFSET_Y,
                     Config.BACKGROUND_WIDTH, Config.BACKGROUND_HEIGHT);
@@ -147,7 +149,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     private void reStart() {
         initImage(data);
         data = PictureArray.disrupt_2();
-        setStep(0);
+        NonConfigurableVariables.setStep(0);
     }
 
     private boolean isWin() {
@@ -179,7 +181,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
     private void setStepCountAvailable(boolean b) {
         if (!b) return;
-        JLabel stepCountLabel = new JLabel("步数：" + Util.getStep());
+        JLabel stepCountLabel = new JLabel("步数：" + NonConfigurableVariables.getStep());
         stepCountLabel.setBounds(
                 Config.STEP_OFFSET_X, Config.STEP_OFFSET_Y,
                 Config.STEP_WIDTH, Config.STEP_HEIGHT);
@@ -210,12 +212,16 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             createWindow(ImagePath.moneyReceivingCode);
         } else if (o == Mv.textItem) {
             createWindow(ImagePath.readMe);
-        } else if(o == Mv.addImageItem) {
+        } else if (o == Mv.addImageItem) {
+            boolean flag = false;
             // todo 添加图片
             try {
-                AddImage.appendPictureALL();
+                flag = AddImage.appendPictureALL();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
+            }
+            if (flag) {
+                createWindow(ImagePath.pleaseRestart);
             }
         }
     }
@@ -234,4 +240,6 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             });
         }
     }
+
 }
+

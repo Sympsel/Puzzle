@@ -1,15 +1,19 @@
 package priv.sympsel;
 
 public class Config {
-// ==================游戏设置====================> 一般不动
+// ==================游戏设置====================> 可动调整
 // 选择初始图片
     public static int DEFAULT_IMAGE = 2;
 
 // 可视计数器
-    public static boolean SHOW_STEP = false;
+    public static boolean SHOW_STEP = true;
 
 // 逆向打乱次数
     public static int disruptStep = 1000;
+
+// 序列图及整图修改后类型
+    public static final String type = ".jpg";
+    public static final String format = "jpg";
 
 // 设置小图片边框样式：凸起: 0、凹陷: 1
     public static int STYLE = 0;

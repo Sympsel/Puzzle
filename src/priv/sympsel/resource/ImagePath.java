@@ -1,7 +1,5 @@
 package priv.sympsel.resource;
 
-import priv.sympsel.util.Util;
-
 public class ImagePath {
     // 界面图片
     public static final String back = "image/frame/back.jpg";
@@ -22,6 +20,7 @@ public class ImagePath {
     public static final String login = "image/frame/login.jpg";
     public static final String register = "image/frame/register.jpg";
 
+    public static final String pleaseRestart = "image/frame/please_restart.jpg";
     public static final String win = "image/frame/win.jpg";
     // 按钮图片
     public static final String finish_button = "image/button/finish_button.png";
@@ -32,9 +31,7 @@ public class ImagePath {
     public static final String register_button_on = "image/button/register_button_on.png";
 
     // 游戏图片
-    public static final String type = ".jpg";
     public static final String pathPri = "image/picture/p";
-
     public static final String imageGroupPath = "image/picture";
 
     // 其它图片
@@ -42,5 +39,7 @@ public class ImagePath {
     public static final String moneyReceivingCode = "image/frame/moneyreceivingcode.jpg";
     public static final String readMe = "image/frame/readme.jpg";
     public static final String tips = "image/frame/宫格游戏拼图技巧_billbill.jpg";
+    // 临时文件夹目录
+    public static final String tempDir = "image/tempimage";
 
 }
