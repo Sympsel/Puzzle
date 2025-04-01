@@ -109,4 +109,8 @@ public class Util {
         for (File file : files) if (file.isDirectory()) count++;
         return count;
     }
+
+    public static String reFormatPath( String path) {
+        return path.replaceAll("\\\\|\\\\\\\\", "/");
+    }
 }

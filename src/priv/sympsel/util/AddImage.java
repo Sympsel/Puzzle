@@ -286,13 +286,21 @@ public class AddImage {
         try {
             Files.createDirectories(imageGroupPath);
 
-            System.out.println("请输入图片路径");
+            System.out.print("请输入图片路径: ");
+            System.out.println("(不要包含引号。)");
+
+
             // todo 把读取图片改为读取配置文件
             Scanner sc = new Scanner(System.in);
             String imagePath = sc.nextLine();
+            imagePath = Util.reFormatPath(imagePath);
+
+            System.out.println("若未添加成功（已文件目录：image/picture/p<...>为准）删除格式与p1~p6的值不同的文件");
+
+
             // 处理文件夹中的图像
 //        imageProcessing(imagePath);
-            imageProcessing("D:/桌面/Snipaste_2025-04-01_11-57-31.png");
+            imageProcessing(imagePath);
             System.out.println("图片添加成功！目前" +
                     newNubOfPicture + "张图片");
             return true;
