@@ -110,7 +110,8 @@ public class Util {
         return count;
     }
 
-    public static String reFormatPath( String path) {
+    public static String reFormatPath(String path) {
+        path = path.replaceAll("\"", "");
         return path.replaceAll("\\\\|\\\\\\\\", "/");
     }
 }
