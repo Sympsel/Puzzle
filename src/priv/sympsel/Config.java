@@ -72,4 +72,16 @@ public class Config {
 // 将新增切片图及整图按照内置图片的命名规则命名
     public static int WIDTH = 45;
     public static int HEIGHT = 45;
+
+// 登录界面偏移
+    public static int LOGIN_OFFSET_X = 1;
+    public static int LOGIN_OFFSET_Y = 1;
+// 登录界面宽高
+    public static int LOGIN_WIDTH = 300;
+    public static int LOGIN_HEIGHT = 300;
+// 注册界面偏移
+
+// 注册界面宽高
+//    public static int REGISTER_WIDTH = 300;
+//    public static int REGISTER_HEIGHT = 300;
 }

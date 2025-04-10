@@ -6,6 +6,7 @@ import priv.sympsel.ui.GameJFrame;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 public class Util {
@@ -36,9 +37,9 @@ public class Util {
     }
 
     public static void addActionListenerAll(
-            GameJFrame jFrame, JMenuItem... items) {
+            JFrame jFrame, JMenuItem... items) {
         for (JMenuItem item : items) {
-            item.addActionListener(jFrame);
+            item.addActionListener((ActionListener) jFrame);
         }
     }
 

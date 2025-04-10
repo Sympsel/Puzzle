@@ -19,8 +19,6 @@ import java.util.Random;
 import static priv.sympsel.resource.PictureArray.data;
 import static priv.sympsel.util.Util.*;
 
-import priv.sympsel.util.NonConfigurableVariables;
-
 public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
     public GameJFrame() {

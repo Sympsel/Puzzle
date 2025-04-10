@@ -6,10 +6,10 @@ import priv.sympsel.ui.RegisterJFrame;
 
 public class StartGame {
     public static void main(String[] args) {
-//        new LoginFrame();
+        new LoginFrame();
 
 //        new RegisterJFrame();
 
-        new GameJFrame();
+//        new GameJFrame();
     }
 }
