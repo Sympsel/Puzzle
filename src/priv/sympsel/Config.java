@@ -80,8 +80,10 @@ public class Config {
     public static int LOGIN_WIDTH = 300;
     public static int LOGIN_HEIGHT = 300;
 // 注册界面偏移
+    public static int REGISTER_OFFSET_X = 1;
+    public static int REGISTER_OFFSET_Y = 1;
 
 // 注册界面宽高
-//    public static int REGISTER_WIDTH = 300;
-//    public static int REGISTER_HEIGHT = 300;
+    public static int REGISTER_WIDTH = 300;
+    public static int REGISTER_HEIGHT = 300;
 }

@@ -15,7 +15,7 @@ public class ImagePath {
     public static final String usernameEmpty = "image/frame/usernameempty.jpg";
     public static final String usernameHaveEmpty = "image/frame/usernamehaveempty.jpg";
     public static final String usernameOccupied = "image/frame/usernameoccupied.jpg";
-    public static final String usernameTooLong = "image/frame/usernametoolong.jpg";
+    public static final String usernameTooLong = "image/frame/usernametoolang.jpg";
 
     public static final String login = "image/frame/login.jpg";
     public static final String register = "image/frame/register.jpg";

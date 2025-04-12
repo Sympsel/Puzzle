@@ -1,6 +1,7 @@
 package priv.sympsel.resource;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Mv {
 
@@ -37,4 +38,14 @@ public class Mv {
     // 背景图片
     public static ImageIcon backgroundImage;
     public static JLabel background = new JLabel();
+
+    // 文本输入框
+    public static JTextField UsernameTextFieldInRegister;
+    public static JTextField PasswordTextFieldInRegister;
+    public static JTextField EnsurePasswordTextField;
+    public static JTextField PasswordTextFieldInLogin;
+    public static JTextField UsernameTextFieldInLogin;
+    public static JTextField CodeTextFieldInRegister;
+    public static JTextField CodeTextFieldInLogin;
+//    public static JLabel
 }

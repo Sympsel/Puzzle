@@ -2,12 +2,15 @@ package priv.sympsel.util;
 
 import priv.sympsel.Config;
 import priv.sympsel.resource.ImagePath;
-import priv.sympsel.ui.GameJFrame;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.Random;
 
 public class Util {
     public static void addPicture(
@@ -40,6 +43,12 @@ public class Util {
             JFrame jFrame, JMenuItem... items) {
         for (JMenuItem item : items) {
             item.addActionListener((ActionListener) jFrame);
+        }
+    }
+
+    public static void addActionListenerAll(JButton... jbs) {
+        for (JButton jButton : jbs) {
+            jButton.addActionListener((ActionListener) jButton);
         }
     }
 
@@ -114,5 +123,51 @@ public class Util {
     public static String reFormatPath(String path) {
         path = path.replaceAll("\"", "");
         return path.replaceAll("\\\\|\\\\\\\\", "/");
+    }
+
+    public static JButton createButton(JFrame jFrame, JButton jb,
+                                       int x, int y, int width, int height,
+                                       boolean borderPainted, boolean contentAreaFilled) {
+        jb.setBounds(x, y, width, height);
+        jb.setBorderPainted(borderPainted);
+        jb.setContentAreaFilled(contentAreaFilled);
+
+        jFrame.getContentPane().add(jb);
+        jb.addActionListener((ActionListener) jFrame);
+        jb.addMouseListener((MouseListener) jFrame);
+        return jb;
+    }
+
+    public static JTextField createTextField(JFrame jFrame, JTextField jtextField, int x, int y, int width, int height) {
+        jFrame.setLayout(null);
+        jtextField.setBounds(x, y, width, height);
+        jFrame.getContentPane().add(jtextField);
+        jFrame.addKeyListener((KeyListener) jFrame);
+        return jtextField;
+    }
+
+    public static JLabel createLabel(JFrame jFrame, JLabel jLabel, int x, int y, int width, int height) {
+        jLabel.setBounds(x, y, width, height);
+        jFrame.getContentPane().add(jLabel);
+        return jLabel;
+    }
+
+    public static String getCode() {
+        Random r = new Random();
+        char[] ch = new char[5];
+        for (int i = 0; i < 4; i++) {
+            int choice = r.nextInt(2);
+            if (choice == 0) ch[i] = (char) (r.nextInt(26) + 'a');
+            else ch[i] = (char) (r.nextInt(26) + 'A');
+        }
+        ch[4] = (char) (r.nextInt(10) + '0');
+        for (int i = 0; i < ch.length; i++) {
+            int index = r.nextInt(ch.length);
+            char temp = ch[i];
+            ch[i] = ch[index];
+            ch[index] = temp;
+        }
+        // 替换了易于混淆的字母
+        return new String(ch).replace("I", "i").replace("l", "L");
     }
 }

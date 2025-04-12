@@ -190,7 +190,8 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object o = e.getSource();
         if (o == Mv.reLoginItem) {
-            new LoginFrame();
+            this.dispose();
+            new LoginJFrame();
         } else if (o == Mv.closeItem) {
             System.exit(0);
         } else if (o == Mv.fastWinItem) {
@@ -211,7 +212,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         } else if (o == Mv.textItem) {
             createWindow(ImagePath.readMe);
         } else if (o == Mv.addImageItem) {
-            boolean flag = false;
+            boolean flag;
             // todo 添加图片
             try {
                 flag = AddImage.appendPictureALL();
