@@ -190,39 +190,10 @@ public class AddImage {
         }
     }
 
-    public static void deleteEmptyDir(String dir) throws IOException {
+    public static void deleteEmptyDir(String dir) {
         File f = new File(dir);
         File[] files = f.listFiles();
         if (files == null) return;
         for (File file : files) file.delete();
-    }
-
-    public static String getNameWithoutExtension(String filePath) {
-
-        java.nio.file.Path path = Paths.get(filePath);
-
-        // 获取文件名不包含扩展名
-        String nameWithoutExtension = path.getFileName().toString();
-        int lastIndexOfDot = nameWithoutExtension.lastIndexOf(".");
-        if (lastIndexOfDot != -1) {
-            nameWithoutExtension = nameWithoutExtension.substring(0, lastIndexOfDot);
-        }
-        return nameWithoutExtension;
-    }
-
-    public static String getName(String filePath) {
-        java.nio.file.Path path = Paths.get(filePath);
-        return path.getFileName().toString();
-    }
-
-    public static void saveToFile(String FILE_PATH) {
-        try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(FILE_PATH))) {
-            // 写入数据到文件
-            bos.write("这是一些需要保存的数据".getBytes());
-            // 强制将缓冲区中的数据写入文件
-            bos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -36,7 +36,7 @@ public class User implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "username=" + username + "&password=" + password;
+        return String.format("username=%s&password=%s", username, password);
     }
 
     public static void readUserInfoFormated(List<User> userList) {
@@ -50,8 +50,5 @@ public class User implements java.io.Serializable {
         for (String s : userInfoFormated) {
             userList.add(new User(s));
         }
-
-        System.out.println(userInfoFormated);
-        System.out.println(userList);
     }
 }
