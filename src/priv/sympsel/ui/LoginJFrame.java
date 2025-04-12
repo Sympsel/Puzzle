@@ -16,6 +16,7 @@ public class LoginJFrame extends JFrame implements KeyListener, ActionListener, 
 
     ArrayList<User> userList = new ArrayList<>();
     static String trueCode = getCode();
+
     public LoginJFrame() {
         User.readUserInfoFormated(userList);
 
@@ -29,9 +30,9 @@ public class LoginJFrame extends JFrame implements KeyListener, ActionListener, 
     }
 
     private void setTextField() {
-        Mv.UsernameTextFieldInLogin = Util.createTextField(this, new JTextField(), 108, 71, 167, 38);
-        Mv.PasswordTextFieldInLogin = Util.createTextField(this, new JTextField(), 108, 124, 167, 38);
-        Mv.CodeTextFieldInLogin = Util.createTextField(this, new JTextField(), 108, 177, 84, 38);
+        Mv.UsernameTextFieldInLogin = Util.createTextField(this, new JTextField(), Config.LOGIN_X_OFFSET, Config.LOGIN_Y1_OFFSET, Config.TEXT_FIELD_WIDTH, Config.TEXT_FIELD_HEIGHT);
+        Mv.PasswordTextFieldInLogin = Util.createTextField(this, new JTextField(), Config.LOGIN_X_OFFSET, Config.LOGIN_Y2_OFFSET, Config.TEXT_FIELD_WIDTH, Config.TEXT_FIELD_HEIGHT);
+        Mv.CodeTextFieldInLogin = Util.createTextField(this, new JTextField(), Config.LOGIN_X_OFFSET, Config.LOGIN_Y3_OFFSET, Config.LOGIN_CODE_OFFSET_WIDTH, Config.TEXT_FIELD_HEIGHT);
     }
 
     public void setBack() {
@@ -42,7 +43,8 @@ public class LoginJFrame extends JFrame implements KeyListener, ActionListener, 
 
     private void setCode() {
         JLabel codeLabel = new JLabel(trueCode);
-        codeLabel.setBounds(200, 185, 100, 20);
+        codeLabel.setBounds(Config.LOGIN_CODE_OFFSET_X, Config.LOGIN_CODE_OFFSET_Y,
+                Config.REGISTER_CODE_WIDTH, Config.REGISTER_CODE_HEIGHT);
         this.add(codeLabel);
     }
 
@@ -121,8 +123,8 @@ public class LoginJFrame extends JFrame implements KeyListener, ActionListener, 
     }
 
     public void setButton() {
-        Mv.loginJB = Util.createButton(this, new JButton(), 14, 242, 131, 45, false, false);
-        Mv.registerJB = Util.createButton(this, new JButton(), 158, 242, 131, 45, false, false);
+        Mv.loginJB = Util.createButton(this, new JButton(), Config.LOGIN_TEXT_OFFSET_X, Config.BUTTON_TEXT_OFFSET_Y, Config.BUTTON_TEXT_WIDTH, Config.BUTTON_TEXT_HEIGHT, false, false);
+        Mv.registerJB = Util.createButton(this, new JButton(), Config.REGISTER_TEXT_OFFSET_X, Config.BUTTON_TEXT_OFFSET_Y, Config.BUTTON_TEXT_WIDTH, Config.BUTTON_TEXT_HEIGHT, false, false);
     }
 
     @Override

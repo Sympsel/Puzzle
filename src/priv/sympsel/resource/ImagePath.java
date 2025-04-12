@@ -41,5 +41,4 @@ public class ImagePath {
     public static final String tips = "image/frame/宫格游戏拼图技巧_billbill.jpg";
     // 临时文件夹目录
     public static final String tempDir = "image/tempimage";
-
 }

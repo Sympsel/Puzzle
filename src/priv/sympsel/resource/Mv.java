@@ -1,7 +1,6 @@
 package priv.sympsel.resource;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Mv {
 
@@ -47,5 +46,4 @@ public class Mv {
     public static JTextField UsernameTextFieldInLogin;
     public static JTextField CodeTextFieldInRegister;
     public static JTextField CodeTextFieldInLogin;
-//    public static JLabel
 }

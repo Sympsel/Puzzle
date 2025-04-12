@@ -86,7 +86,8 @@ public class RegisterJFrame extends JFrame implements KeyListener, ActionListene
         this.addKeyListener(this);
 
         Util.addActionListenerAll(this, Mv.functionJMenu, Mv.helpJMenu, Mv.aboutJMenu,
-                Mv.reLoginItem, Mv.closeItem, Mv.testUserItem, Mv.accountItem, Mv.textItem, Mv.tipsItem, Mv.reLoginItem);
+                Mv.reLoginItem, Mv.closeItem, Mv.testUserItem, Mv.accountItem,
+                Mv.textItem, Mv.tipsItem, Mv.reLoginItem);
 
         setButton();
 
@@ -97,19 +98,19 @@ public class RegisterJFrame extends JFrame implements KeyListener, ActionListene
 
     private void setCode() {
         JLabel codeLabel = new JLabel(trueCode);
-        codeLabel.setBounds(200, 208, 100, 20);
+        codeLabel.setBounds(Config.REGISTER_CODE_OFFSET_X, Config.REGISTER_CODE_OFFSET_Y, Config.REGISTER_CODE_WIDTH, Config.REGISTER_CODE_HEIGHT);
         this.add(codeLabel);
     }
 
     private void setTextField() {
-        Mv.UsernameTextFieldInRegister = Util.createTextField(this, new JTextField(), 108, 66, 167, 38);
-        Mv.PasswordTextFieldInRegister = Util.createTextField(this, new JTextField(), 108, 110, 167, 38);
-        Mv.EnsurePasswordTextField = Util.createTextField(this, new JTextField(), 108, 154, 167, 38);
-        Mv.CodeTextFieldInRegister = Util.createTextField(this, new JTextField(), 108, 198, 84, 38);
+        Mv.UsernameTextFieldInRegister = Util.createTextField(this, new JTextField(), Config.REGISTER_X_OFFSET, Config.REGISTER_Y1_OFFSET, Config.REGISTER_TEXT_FIELD_WIDTH, Config.REGISTER_TEXT_FIELD_HEIGHT);
+        Mv.PasswordTextFieldInRegister = Util.createTextField(this, new JTextField(), Config.REGISTER_X_OFFSET, Config.REGISTER_Y2_OFFSET, Config.REGISTER_TEXT_FIELD_WIDTH, Config.REGISTER_TEXT_FIELD_HEIGHT);
+        Mv.EnsurePasswordTextField = Util.createTextField(this, new JTextField(), Config.REGISTER_X_OFFSET, Config.REGISTER_Y3_OFFSET, Config.REGISTER_TEXT_FIELD_WIDTH, Config.REGISTER_TEXT_FIELD_HEIGHT);
+        Mv.CodeTextFieldInRegister = Util.createTextField(this, new JTextField(), Config.REGISTER_X_OFFSET, Config.REGISTER_Y4_OFFSET, Config.REGISTER_TEXT_FIELD_WIDTH_CODE, Config.REGISTER_TEXT_FIELD_HEIGHT);
     }
 
     public void setButton() {
-        Mv.finishJB = Util.createButton(this, new JButton(), 82, 246, 135, 45, false, false);
+        Mv.finishJB = Util.createButton(this, new JButton(), Config.FINISH_OFFSET_X, Config.FINISH_OFFSET_Y, Config.FINISH_WIDTH, Config.FINISH_HEIGHT, false, false);
     }
 
     public void setBack() {
@@ -175,9 +176,6 @@ public class RegisterJFrame extends JFrame implements KeyListener, ActionListene
         if (o == Mv.finishJB) {
             System.out.println("finish");
             // todo 添加悬停时完成按钮
-//            this.removeAll();
-//            this.getContentPane().removeAll();
-//            Util.addPicture(this, ImagePath.finish_button_on, 83, 246, 133, 46);
         }
     }
 

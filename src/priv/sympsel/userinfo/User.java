@@ -41,6 +41,7 @@ public class User implements java.io.Serializable {
 
     public static void readUserInfoFormated(List<User> userList) {
         String path = "src/priv/sympsel/userinfo/userinfo.txt";
+        // 备份
         String copied = "src/priv/sympsel/userinfo/userinfocopy.txt";
         File f = new File(path);
         File f_copy = new File(copied);

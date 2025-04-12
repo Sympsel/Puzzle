@@ -239,6 +239,5 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             });
         }
     }
-
 }
 
