@@ -1,11 +1,10 @@
 package priv.sympsel.util;
 
 import priv.sympsel.Config;
-import priv.sympsel.resource.ImagePath;
+import priv.sympsel.resource.Path;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
@@ -30,7 +29,7 @@ public class Util {
     }
 
     public static void addPicture(JFrame jFrame, int[][] data) {
-        String path = ImagePath.pathPri + Config.DEFAULT_IMAGE + "/";
+        String path = Path.pathPri + Config.DEFAULT_IMAGE + "/";
         for (int i = 0; i < 16; i++) {
             addPicture(jFrame, path + data[i / 4][i % 4] + Config.type,
                     Config.LEFT_TOP_OFFSET_X + i % 4 * Config.WIDTH,
@@ -54,7 +53,7 @@ public class Util {
 
     public static void addPicture(JFrame jFrame, int[] data) {
         for (int i = 0; i < 15; i++) {
-            addPicture(jFrame, ImagePath.pathPri + data[i] + Config.type,
+            addPicture(jFrame, Path.pathPri + data[i] + Config.type,
                     Config.LEFT_TOP_OFFSET_X + i % 4 * Config.WIDTH,
                     Config.LEFT_TOP_OFFSET_Y + i / 4 * Config.HEIGHT,
                     Config.WIDTH, Config.HEIGHT);
@@ -93,7 +92,7 @@ public class Util {
         data[x_][y_] = temp;
     }
 
-    public static void createWindow(String picture) {
+    public static JDialog createWindow(String picture) {
         JDialog jDialog = new JDialog();
         //创建管理图片的容器
         JLabel jLabel = new JLabel(new ImageIcon(picture));
@@ -104,6 +103,7 @@ public class Util {
         jDialog.setLocationRelativeTo(null);
         jDialog.setModal(true);
         jDialog.setVisible(true);
+        return jDialog;
     }
 
     public static int getImageGroupNumber(String pathToFile) {
@@ -146,10 +146,11 @@ public class Util {
         return jtextField;
     }
 
-    public static JLabel createLabel(JFrame jFrame, JLabel jLabel, int x, int y, int width, int height) {
-        jLabel.setBounds(x, y, width, height);
-        jFrame.getContentPane().add(jLabel);
-        return jLabel;
+    public static JTextField createTextField(JDialog jdialog, JTextField jtextField, int x, int y, int width, int height) {
+        jdialog.setLayout(null);
+        jtextField.setBounds(x, y, width, height);
+        jdialog.getContentPane().add(jtextField);
+        return jtextField;
     }
 
     public static String getCode() {

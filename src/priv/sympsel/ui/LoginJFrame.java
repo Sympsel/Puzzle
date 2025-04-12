@@ -1,14 +1,18 @@
 package priv.sympsel.ui;
 
+import cn.hutool.core.io.FileUtil;
 import priv.sympsel.Config;
-import priv.sympsel.resource.ImagePath;
+import priv.sympsel.resource.Path;
 import priv.sympsel.resource.Mv;
 import priv.sympsel.userinfo.User;
+import priv.sympsel.util.NonConfigurableVariables;
 import priv.sympsel.util.Util;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import static priv.sympsel.util.Util.*;
 
@@ -36,7 +40,7 @@ public class LoginJFrame extends JFrame implements KeyListener, ActionListener, 
     }
 
     public void setBack() {
-        addPicture(this, ImagePath.login,
+        addPicture(this, Path.login,
                 Config.LOGIN_OFFSET_X, Config.LOGIN_OFFSET_Y,
                 Config.LOGIN_WIDTH, Config.LOGIN_HEIGHT);
     }
@@ -56,19 +60,24 @@ public class LoginJFrame extends JFrame implements KeyListener, ActionListener, 
         for (User user : userList) {
             if (username.equals(user.getUsername())) {
                 if (!password.equals(user.getPassword())) {
-                    createWindow(ImagePath.errorPassword);
+                    createWindow(Path.errorPassword);
                     return;
                 } else if (!code.equals(trueCode)) {
-                    createWindow(ImagePath.errorCode);
+                    createWindow(Path.errorCode);
                     return;
                 } else {
                     this.dispose();
                     new GameJFrame();
+                    NonConfigurableVariables.setUserToSave(username);
+                    File onlineUser = new File(Path.onlineUser);
+                    List<String> temp = new ArrayList<>();
+                    temp.add(username);
+                    FileUtil.writeUtf8Lines(temp, onlineUser.getAbsolutePath());
                     return;
                 }
             }
         }
-        createWindow(ImagePath.noUser);
+        createWindow(Path.noUser);
     }
 
     public void initJFrame() {
@@ -112,13 +121,13 @@ public class LoginJFrame extends JFrame implements KeyListener, ActionListener, 
         if (o == Mv.closeItem) {
             System.exit(0);
         } else if (o == Mv.tipsItem) {
-            Util.createWindow(ImagePath.tips);
+            Util.createWindow(Path.tips);
         } else if (o == Mv.testUserItem) {
-            Util.createWindow(ImagePath.testUser);
+            Util.createWindow(Path.testUser);
         } else if (o == Mv.accountItem) {
-            Util.createWindow(ImagePath.moneyReceivingCode);
+            Util.createWindow(Path.moneyReceivingCode);
         } else if (o == Mv.textItem) {
-            Util.createWindow(ImagePath.readMe);
+            Util.createWindow(Path.readMe);
         }
     }
 
@@ -152,10 +161,8 @@ public class LoginJFrame extends JFrame implements KeyListener, ActionListener, 
     public void mouseEntered(MouseEvent e) {
         Object o = e.getSource();
         if (o == Mv.loginJB) {
-            System.out.println("login");
             // todo 添加悬停时登录按钮
         } else if (o == Mv.registerJB) {
-            System.out.println("register");
             // todo 添加悬停时注册按钮
         }
     }
@@ -164,10 +171,8 @@ public class LoginJFrame extends JFrame implements KeyListener, ActionListener, 
     public void mouseExited(MouseEvent e) {
         Object o = e.getSource();
         if (o == Mv.loginJB) {
-            System.out.println("login");
             // todo 替换回图片
         } else if (o == Mv.registerJB) {
-            System.out.println("register");
             // todo 替换回图片
         }
     }

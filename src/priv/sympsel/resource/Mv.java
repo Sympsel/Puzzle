@@ -1,7 +1,6 @@
 package priv.sympsel.resource;
 
 import javax.swing.*;
-
 public class Mv {
 
     // 创建菜单
@@ -14,7 +13,6 @@ public class Mv {
 
     // 创建菜单项
     public static final JMenuItem addImageItem = new JMenuItem("添加图片");
-    public static final JMenuItem backLoginItem = new JMenuItem("返回登录：Z");
     public static final JMenuItem closeItem = new JMenuItem("退出游戏：X");
 
     public static final JMenuItem tipsItem = new JMenuItem("补习");
@@ -27,7 +25,9 @@ public class Mv {
     public static final JMenuItem fastWinItem = new JMenuItem("一键通关：W");
     public static final JMenuItem showItem = new JMenuItem("成图预览：Q");
     public static final JMenuItem randomImageItem = new JMenuItem("随机图片：N");
+    public static final JMenuItem clearHistoryItem = new JMenuItem("清空历史记录");
     public static final JMenuItem testUserItem = new JMenuItem("测试用户");
+    public static final JMenuItem history = new JMenuItem("历史记录");
 
     // 创建按钮
     public static JButton loginJB;
@@ -46,4 +46,5 @@ public class Mv {
     public static JTextField UsernameTextFieldInLogin;
     public static JTextField CodeTextFieldInRegister;
     public static JTextField CodeTextFieldInLogin;
+    public static JTextField AddImageTextField;
 }

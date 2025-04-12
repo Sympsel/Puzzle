@@ -1,7 +1,7 @@
 package priv.sympsel.ui;
 
 import cn.hutool.core.io.FileUtil;
-import priv.sympsel.resource.ImagePath;
+import priv.sympsel.resource.Path;
 import priv.sympsel.resource.Mv;
 import priv.sympsel.userinfo.User;
 import priv.sympsel.util.Util;
@@ -42,32 +42,34 @@ public class RegisterJFrame extends JFrame implements KeyListener, ActionListene
         String code = Mv.CodeTextFieldInRegister.getText();
 
         if (username.isEmpty()) {
-            createWindow(ImagePath.usernameEmpty);
+            createWindow(Path.usernameEmpty);
             return;
         } else if (username.contains(" ")) {
-            createWindow(ImagePath.usernameHaveEmpty);
+            createWindow(Path.usernameHaveEmpty);
             return;
         } else if (username.length() > 10) {
-            createWindow(ImagePath.usernameTooLong);
+            createWindow(Path.usernameTooLong);
             return;
         }
         for (User user : userList) {
             if (username.equals(user.getUsername())) {
-                createWindow(ImagePath.usernameOccupied);
+                createWindow(Path.usernameOccupied);
                 return;
             }
         }
         if (password.isEmpty()) {
-            createWindow(ImagePath.passwordEmpty);
+            createWindow(Path.passwordEmpty);
         } else if (!password.equals(ensurePassword)) {
-            createWindow(ImagePath.passwordDiffer);
+            createWindow(Path.passwordDiffer);
         } else if (!code.equals(trueCode)) {
-            createWindow(ImagePath.errorCode);
+            createWindow(Path.errorCode);
         } else {
             String path = "src/priv/sympsel/userinfo/userinfo.txt";
             List<String> userInfoFormated = FileUtil.readUtf8Lines(new File(path).getAbsolutePath());
             userInfoFormated.add(new User(username, password).toString());
             FileUtil.writeUtf8Lines(userInfoFormated, new File(path).getAbsolutePath());
+            File f = new File(Path.gameSave, username);
+            FileUtil.mkdir(f.getAbsolutePath());
             this.dispose();
             new LoginJFrame();
         }
@@ -114,7 +116,7 @@ public class RegisterJFrame extends JFrame implements KeyListener, ActionListene
     }
 
     public void setBack() {
-        Util.addPicture(this, ImagePath.register,
+        Util.addPicture(this, Path.register,
                 Config.REGISTER_OFFSET_X, Config.REGISTER_OFFSET_Y,
                 Config.REGISTER_WIDTH, Config.REGISTER_HEIGHT);
     }
@@ -143,13 +145,13 @@ public class RegisterJFrame extends JFrame implements KeyListener, ActionListene
         } else if (o == Mv.closeItem) {
             System.exit(0);
         } else if (o == Mv.accountItem) {
-            Util.createWindow(ImagePath.moneyReceivingCode);
+            Util.createWindow(Path.moneyReceivingCode);
         } else if (o == Mv.testUserItem) {
-            Util.createWindow(ImagePath.testUser);
+            Util.createWindow(Path.testUser);
         } else if (o == Mv.textItem) {
-            Util.createWindow(ImagePath.readMe);
+            Util.createWindow(Path.readMe);
         } else if (o == Mv.tipsItem) {
-            Util.createWindow(ImagePath.tips);
+            Util.createWindow(Path.tips);
         } else if (o == Mv.finishJB) {
             toRegister();
         }
@@ -174,7 +176,6 @@ public class RegisterJFrame extends JFrame implements KeyListener, ActionListene
     public void mouseEntered(MouseEvent e) {
         Object o = e.getSource();
         if (o == Mv.finishJB) {
-            System.out.println("finish");
             // todo 添加悬停时完成按钮
         }
     }
@@ -183,7 +184,6 @@ public class RegisterJFrame extends JFrame implements KeyListener, ActionListene
     public void mouseExited(MouseEvent e) {
         Object o = e.getSource();
         if (o == Mv.finishJB) {
-            System.out.println("finish");
             // todo 替换回图片
         }
     }

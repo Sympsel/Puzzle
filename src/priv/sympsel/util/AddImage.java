@@ -1,7 +1,7 @@
 package priv.sympsel.util;
 
 import priv.sympsel.Config;
-import priv.sympsel.resource.ImagePath;
+import priv.sympsel.resource.Path;
 
 import java.io.*;
 import java.awt.image.BufferedImage;
@@ -10,18 +10,12 @@ import java.awt.*;
 import java.nio.file.*;
 import java.util.Scanner;
 
-import static priv.sympsel.resource.ImagePath.imageGroupPath;
+import static priv.sympsel.resource.Path.imageGroupPath;
 
 public class AddImage {
     public static void imageProcessing(String image) throws IOException {
-//        // 输入图片路径和输出目录路径
-//        String imagePath = "D:/桌面/棒棒糖.jpg";
-
-//        // 图片改变尺寸后的路径
-//        String tempOutput = "D:/桌面";
         // 最终序列图的输出文件夹目录
-        String outputDirectoryFinal = imageGroupPath + "/p" +
-                (NonConfigurableVariables.MAX_PICTURE_COUNT + 1);
+        String outputDirectoryFinal = String.format("%s%s%d", imageGroupPath, "/p", NonConfigurableVariables.MAX_PICTURE_COUNT + 1);
 
         // 原图片的新尺寸
         int newWidth = 4 * Config.WIDTH;
@@ -31,42 +25,35 @@ public class AddImage {
         int X = 4;
         int Y = 4;
 
-        // /path/abc.txt -> abc
-        String nameWithoutExtension = getNameWithoutExtension(image);
-        // /path/abc.txt -> abc.txt
-        String imageName = getName(image);
-
         // 复制图片到临时文件夹并重命名
-        String copiedImagePathTo = ImagePath.tempDir;
-        String copiedImageNewName = copiedImagePathTo + "/" + "whole" + Config.type;
+        String copiedImagePathTo = Path.tempDir;
+        String copiedImageNewName = String.format("%s%s%s%s", copiedImagePathTo, "/", "whole", Config.type);
         fileCopies(image, copiedImagePathTo);
 
         // 改变原图尺寸
         resizeImage(copiedImageNewName, newWidth, newHeight);
 
         // 切割图片
-        ImageSplitter.splitImage(copiedImagePathTo + "/whole" + Config.type,
+        ImageSplitter.splitImage(String.format("%s%s%s", copiedImagePathTo, "/whole", Config.type),
                 outputDirectoryFinal, X, Y);
 
-        moveFiles(copiedImagePathTo + "/whole" + Config.type,
-                imageGroupPath + "/" + "p" + Util.getImageGroupNumber(imageGroupPath)
-                        + "/whole" + Config.type);
+        moveFiles(String.format("%s%s%S", copiedImagePathTo, "/whole", Config.type),
+                String.format("%s%s%s%s%s", imageGroupPath, "/p", Util.getImageGroupNumber(imageGroupPath)
+                        , "/whole", Config.type));
 
         // 删除临时图片及空图片组
         deleteDirectoryContents(copiedImagePathTo);
-//        saveToFile(imageGroupPath);
     }
 
     public static void moveFiles(String sourcePath, String destinationPath) {
-        Path source = Paths.get(sourcePath);
-        Path destination = Paths.get(destinationPath);
+        java.nio.file.Path source = Paths.get(sourcePath);
+        java.nio.file.Path destination = Paths.get(destinationPath);
 
         try {
             // 移动文件
             Files.move(source, destination, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("文件移动成功！");
         } catch (IOException e) {
-            System.out.println("文件移动失败：" + e.getMessage());
+            System.out.printf("%s%s\n%n", "Error moving files: ", e.getMessage());
         }
     }
 
@@ -80,7 +67,6 @@ public class AddImage {
             System.out.println("源图片是一个目录，请指定一个文件！");
             return;
         }
-        // todo 改变原图片大小并覆盖原图片
         // 读取图片
         BufferedImage originalImage = ImageIO.read(srcImageFile);
 
@@ -99,7 +85,7 @@ public class AddImage {
     public static class ImageSplitter {
 
         public static void splitImage(String imagePath, String outputDirectory, int X, int Y) {
-            System.out.println("开始切割图片");
+            System.out.println("切割图片");
             File imageFile = new File(imagePath);
             if (!imageFile.exists()) {
                 System.out.println("图片不存在");
@@ -137,40 +123,37 @@ public class AddImage {
                         File blockFile = new File(blockFileName);
                         ImageIO.write(block, "png", blockFile);
 
-                        System.out.println("Saved block: " + blockFileName);
+                        System.out.printf("%s%s\n", "Saved block: ", blockFileName);
                     }
                 }
 
             } catch (IOException e) {
-                System.err.println("Error processing image: " + imagePath);
+                System.err.printf("%s%s\n", "Error processing image: ", imagePath);
                 e.printStackTrace();
             }
         }
     }
 
-    public static boolean appendPictureALL() throws IOException {
+    public static boolean appendPicture(String imagePath) throws IOException {
         // 在指定位置创建文件夹
         int newNubOfPicture = NonConfigurableVariables.MAX_PICTURE_COUNT + 1;
-        String newFileName = "/p" + newNubOfPicture;
-        Path imageGroupPath = Paths.get(ImagePath.imageGroupPath + "/" + newFileName);
+        String newFileName = String.format("%s%d", "/p", newNubOfPicture);
+        java.nio.file.Path imageGroupPath = Paths.get(String.format("%s%s", Path.imageGroupPath, newFileName));
         try {
             Files.createDirectories(imageGroupPath);
             System.out.print("请输入图片路径: ");
 
-            // todo 把读取图片改为读取配置文件
-            Scanner sc = new Scanner(System.in);
-            String imagePath = sc.nextLine();
             imagePath = Util.reFormatPath(imagePath);
 
             // 处理文件夹中的图像
             imageProcessing(imagePath);
-            System.out.println("图片添加成功！目前" + newNubOfPicture + "张图片");
+            System.out.printf("%s%d%s%n", "图片添加成功！目前", newNubOfPicture, "张图片\n");
             return true;
         } catch (FileAlreadyExistsException e) {
             System.out.println("AddImage.imageGroupPath: 添加失败，图片组已存在");
         } catch (Exception e) {
             System.out.println("AddImage.imageGroupPath: 添加失败，未知错误");
-            deleteEmptyDir(ImagePath.imageGroupPath);
+            deleteEmptyDir(Path.imageGroupPath);
         }
         return false;
     }
@@ -178,7 +161,7 @@ public class AddImage {
     public static void fileCopies(final String sourceFile, String targetDir) throws IOException {
         File file = new File(sourceFile);
         FileInputStream fis = new FileInputStream(sourceFile);
-        FileOutputStream fos = new FileOutputStream(targetDir + "/whole" + Config.type);
+        FileOutputStream fos = new FileOutputStream(String.format("%s%s%s", targetDir, "/whole", Config.type));
         if (!file.exists()) {
             System.out.println("fileCopies: 文件不存在");
             return;
@@ -196,10 +179,10 @@ public class AddImage {
 
 
     public static void deleteDirectoryContents(String dir) throws IOException {
-        Path dirPath = Paths.get(dir);
+        java.nio.file.Path dirPath = Paths.get(dir);
         if (Files.exists(dirPath)) {
-            try (DirectoryStream<Path> stream = Files.newDirectoryStream(dirPath)) {
-                for (Path path : stream) {
+            try (DirectoryStream<java.nio.file.Path> stream = Files.newDirectoryStream(dirPath)) {
+                for (java.nio.file.Path path : stream) {
                     if (Files.isDirectory(path)) deleteDirectoryContents(dir); // 递归删除子文件夹
                     else Files.delete(path); // 删除文件
                 }
@@ -210,12 +193,13 @@ public class AddImage {
     public static void deleteEmptyDir(String dir) throws IOException {
         File f = new File(dir);
         File[] files = f.listFiles();
+        if (files == null) return;
         for (File file : files) file.delete();
     }
 
     public static String getNameWithoutExtension(String filePath) {
 
-        Path path = Paths.get(filePath);
+        java.nio.file.Path path = Paths.get(filePath);
 
         // 获取文件名不包含扩展名
         String nameWithoutExtension = path.getFileName().toString();
@@ -227,7 +211,7 @@ public class AddImage {
     }
 
     public static String getName(String filePath) {
-        Path path = Paths.get(filePath);
+        java.nio.file.Path path = Paths.get(filePath);
         return path.getFileName().toString();
     }
 
