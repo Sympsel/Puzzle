@@ -64,12 +64,10 @@ public class RegisterJFrame extends JFrame implements KeyListener, ActionListene
         } else if (!code.equals(trueCode)) {
             createWindow(Path.errorCode);
         } else {
-            String path = "src/priv/sympsel/userinfo/userinfo.txt";
-            List<String> userInfoFormated = FileUtil.readUtf8Lines(new File(path).getAbsolutePath());
+            List<String> userInfoFormated = FileUtil.readUtf8Lines(new File(Path.userInfo).getAbsolutePath());
             userInfoFormated.add(new User(username, password).toString());
-            FileUtil.writeUtf8Lines(userInfoFormated, new File(path).getAbsolutePath());
+            FileUtil.writeUtf8Lines(userInfoFormated, new File(Path.userInfo).getAbsolutePath());
             File f = new File(Path.gameSave, username);
-            FileUtil.mkdir(f.getAbsolutePath());
             this.dispose();
             new LoginJFrame();
         }

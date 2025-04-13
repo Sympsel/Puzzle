@@ -21,7 +21,6 @@ public class Path {
     public static final String register = "image/frame/register.jpg";
 
     public static final String pleaseRestart = "image/frame/please_restart.jpg";
-    public static final String addImage = "image/frame/addimage.jpg";
     public static final String win = "image/frame/win.jpg";
     // 按钮图片
     public static final String finish_button = "image/button/finish_button.png";
@@ -46,4 +45,5 @@ public class Path {
     // 游戏存档
     public static final String gameSave = "src/priv/sympsel/userinfo/save";
     public static final String onlineUser = "src/priv/sympsel/userinfo/onlineuser.txt";
+    public static final String userInfo = "src/priv/sympsel/userinfo/userinfo.txt";
 }

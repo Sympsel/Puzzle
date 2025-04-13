@@ -21,6 +21,7 @@ public class Mv {
     public static final JMenuItem textItem = new JMenuItem("文本");
     public static final JMenuItem replayItem = new JMenuItem("重新开始：空格");
     public static final JMenuItem reLoginItem = new JMenuItem("重新登录：Z");
+//    public static final JMenuItem deleteItem = new JMenuItem("注销账户");
 
     public static final JMenuItem fastWinItem = new JMenuItem("一键通关：W");
     public static final JMenuItem showItem = new JMenuItem("成图预览：Q");

@@ -73,7 +73,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         addAll(Mv.jMenuBar, Mv.functionJMenu, Mv.helpJMenu, Mv.aboutJMenu);
         addAll(Mv.functionJMenu, Mv.addImageItem, Mv.randomImageItem,
                 Mv.showItem, Mv.fastWinItem, Mv.replayItem, Mv.clearHistoryItem,
-                Mv.chooseImageJMenu, Mv.history, Mv.reLoginItem, Mv.closeItem);
+                Mv.chooseImageJMenu, Mv.history, Mv.reLoginItem,/* Mv.deleteItem,*/ Mv.closeItem);
         addAll(Mv.helpJMenu, Mv.tipsItem);
         addAll(Mv.aboutJMenu, Mv.testUserItem, Mv.accountItem, Mv.textItem);
 
@@ -87,7 +87,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
         Util.addActionListenerAll(this, Mv.randomImageItem, Mv.showItem,
                 Mv.fastWinItem, Mv.replayItem, Mv.chooseImageJMenu, Mv.history,
-                Mv.reLoginItem, Mv.closeItem, Mv.tipsItem, Mv.addImageItem,
+                Mv.reLoginItem, Mv.closeItem, Mv.tipsItem, Mv.addImageItem, /*Mv.deleteItem,*/
                 Mv.testUserItem, Mv.accountItem, Mv.textItem, Mv.clearHistoryItem);
 
         addGamePicture();
@@ -247,9 +247,14 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             }
             List<String> list = FileUtil.readUtf8Lines(f);
             StringBuilder sb = new StringBuilder();
-            list.forEach(s->sb.append(s).append("\n"));
+            list.forEach(s -> sb.append(s).append("\n"));
             JOptionPane.showMessageDialog(this, sb.toString(), "历史记录", JOptionPane.INFORMATION_MESSAGE);
-        }
+        } /*else if (o == Mv.deleteItem) {
+            List<String> list = FileUtil.readUtf8Lines(new File(Path.userInfo));
+            List<String> newList = new ArrayList<>();
+            for (String s : list) if (s.equals(NonConfigurableVariables.getUserToSave())) newList.add(s);
+            FileUtil.writeUtf8Lines(newList, Path.userInfo);
+        }*/
     }
 
     private void addGamePicture() {

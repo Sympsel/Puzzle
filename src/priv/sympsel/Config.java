@@ -83,7 +83,7 @@ public class Config {
     public static int REGISTER_Y4_OFFSET = 198;
     // 注册界面文本框宽高
     public static int REGISTER_TEXT_FIELD_WIDTH = 167;
-    public static int REGISTER_TEXT_FIELD_WIDTH_CODE = 167;
+    public static int REGISTER_TEXT_FIELD_WIDTH_CODE = 84;
     public static int REGISTER_TEXT_FIELD_HEIGHT = 38;
     // 完成按钮偏移
     public static int FINISH_OFFSET_X = 82;
