@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.nio.file.*;
-import java.util.Scanner;
 
 import static priv.sympsel.resource.Path.imageGroupPath;
 
@@ -141,13 +140,10 @@ public class AddImage {
         java.nio.file.Path imageGroupPath = Paths.get(String.format("%s%s", Path.imageGroupPath, newFileName));
         try {
             Files.createDirectories(imageGroupPath);
-            System.out.print("请输入图片路径: ");
-
             imagePath = Util.reFormatPath(imagePath);
 
             // 处理文件夹中的图像
             imageProcessing(imagePath);
-            System.out.printf("%s%d%s%n", "图片添加成功！目前", newNubOfPicture, "张图片\n");
             return true;
         } catch (FileAlreadyExistsException e) {
             System.out.println("AddImage.imageGroupPath: 添加失败，图片组已存在");
@@ -176,7 +172,6 @@ public class AddImage {
         fos.close();
         fis.close();
     }
-
 
     public static void deleteDirectoryContents(String dir) throws IOException {
         java.nio.file.Path dirPath = Paths.get(dir);

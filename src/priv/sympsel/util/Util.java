@@ -45,21 +45,6 @@ public class Util {
         }
     }
 
-    public static void addActionListenerAll(JButton... jbs) {
-        for (JButton jButton : jbs) {
-            jButton.addActionListener((ActionListener) jButton);
-        }
-    }
-
-    public static void addPicture(JFrame jFrame, int[] data) {
-        for (int i = 0; i < 15; i++) {
-            addPicture(jFrame, Path.pathPri + data[i] + Config.type,
-                    Config.LEFT_TOP_OFFSET_X + i % 4 * Config.WIDTH,
-                    Config.LEFT_TOP_OFFSET_Y + i / 4 * Config.HEIGHT,
-                    Config.WIDTH, Config.HEIGHT);
-        }
-    }
-
     public static void addAll(JMenu menu, JMenuItem... items) {
         for (JMenuItem item : items) {
             menu.add(item);
